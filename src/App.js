@@ -1,12 +1,19 @@
 import { ToastContainer } from "react-bootstrap";
 import "./App.css";
+import Navbar from "./components/Navbar";
+import { Route, Routes } from "react-router-dom";
 
 const App = () => {
   return (
     <div className="App">
       <ToastContainer />
-      <h1>Welcome to React Redux Contact App</h1>
-    </div>
+      <Navbar />
+      <Routes>
+          <Route path="/add" element={<div>This is Add Contact</div>} />
+          <Route path="/update/:id" element={<div>This is Update Contact</div>} />
+          </Routes>
+          <h1>Welcome to React Redux Contact App</h1>
+      </div>
   );
 };
 
