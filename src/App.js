@@ -12,7 +12,6 @@ const App = () => {
           <Route path="/add" element={<div>This is Add Contact</div>} />
           <Route path="/update/:id" element={<div>This is Update Contact</div>} />
           </Routes>
-          <h1>Welcome to React Redux Contact App</h1>
       </div>
   );
 };
