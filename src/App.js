@@ -3,6 +3,8 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
+import AddContact from "./components/AddContact";
+import UpdateContact from "./components/UpdateContact";
 
 const App = () => {
   return (
@@ -11,8 +13,8 @@ const App = () => {
       <Navbar />
       <Routes>
           <Route exact path="/" Component={()=> <Home />}/>
-          <Route path="/add" element={<div>This is Add Contact</div>} />
-          <Route path="/update/:id" element={<div>This is Update Contact</div>} />
+          <Route path="/add" element={<AddContact />} />
+          <Route path="/update/:id" element={<UpdateContact />} />
           </Routes>
       </div>
   );
