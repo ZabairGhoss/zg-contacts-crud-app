@@ -1,6 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectAllContacts } from "../redux/reducers/contactSlice";
+import { toast } from "react-toastify";
 
 const AddContact = () => {
+  const contacts = useSelector(selectAllContacts);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const checkEmail = contacts.find(
+      (contact) => contact.email === email && email
+    );
+    const checkNumber = contacts.find(
+      (contact) => contact.contact === parseInt(contact) && contact
+    );
+
+    if (!email || !contact || !name) {
+      return toast.warning("Please fill in all fields!");
+    }
+
+    if (checkEmail) {
+      return toast.error("This email already exists!");
+    }
+
+    if (checkNumber) {
+      return toast.error("This Number already exists!");
+    }
+    console.log("Name:", name);
+    console.log("Email:", email);
+    console.log("Contact", contact);
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -14,6 +48,8 @@ const AddContact = () => {
                 id="name"
                 placeholder="Name"
                 className="form-control"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
 
@@ -24,6 +60,8 @@ const AddContact = () => {
                 id="email"
                 placeholder="Email"
                 className="form-control"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -34,6 +72,8 @@ const AddContact = () => {
                 id="contact"
                 placeholder="Phone Number"
                 className="form-control"
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
               />
             </div>
 
@@ -42,6 +82,7 @@ const AddContact = () => {
                 type="submit"
                 value={"Add Contact"}
                 className="btn btn-dark w-100"
+                onClick={(e) => handleSubmit(e)}
               />
             </div>
           </form>
