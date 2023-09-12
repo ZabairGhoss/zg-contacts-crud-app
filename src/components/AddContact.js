@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { selectAllContacts } from "../redux/reducers/contactSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { contactAdded, selectAllContacts } from "../redux/reducers/contactSlice";
 import { toast } from "react-toastify";
 
 const AddContact = () => {
   const contacts = useSelector(selectAllContacts);
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
@@ -12,10 +13,10 @@ const AddContact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const checkEmail = contacts.find(
+    const checkEmail = contacts?.find(
       (contact) => contact.email === email && email
     );
-    const checkNumber = contacts.find(
+    const checkNumber = contacts?.find(
       (contact) => contact.contact === parseInt(contact) && contact
     );
 
@@ -25,14 +26,11 @@ const AddContact = () => {
 
     if (checkEmail) {
       return toast.error("This email already exists!");
-    }
-
-    if (checkNumber) {
+    } else if (checkNumber) {
       return toast.error("This Number already exists!");
+    } else{
+      dispatch(contactAdded(name, email, contact))
     }
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Contact", contact);
   };
 
   return (
