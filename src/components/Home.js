@@ -1,11 +1,20 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { selectAllContacts } from "../redux/reducers/contactSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectAllContacts,
+  deleteContact,
+} from "../redux/reducers/contactSlice";
 
 import { Link } from "react-router-dom";
 
 const Home = () => {
   const contacts = useSelector(selectAllContacts);
+  const dispatch = useDispatch();
+
+  const handleDelete = (id) => {
+    console.log('deleting...', id);
+    dispatch(deleteContact(id));
+  }
 
   console.log("contacts", contacts);
   return (
@@ -41,7 +50,11 @@ const Home = () => {
                     >
                       Edit
                     </Link>
-                    <button type="button" className="btn btn-small btn-danger">
+                    <button 
+                     type="button" 
+                     className="btn btn-small btn-danger"
+                     onClick={() => handleDelete(contact.id)}
+                     >
                       Delete
                     </button>
                   </td>
