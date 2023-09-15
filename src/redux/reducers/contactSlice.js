@@ -1,23 +1,25 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
+const initialState = {
+  contactBook: [
+    {
+      id: "00000",
+      name: "tester",
+      email: "testing@test.com",
+      contact: 6346376376,
+    },
+    {
+      id: "000001",
+      name: "tester",
+      email: "testing1@test.com",
+      contact: 6846376376,
+    },
+  ],
+};
+
 const contactSlice = createSlice({
   name: "contacts",
-  initialState: {
-    contactBook: [
-      {
-        id: "00000",
-        name: "tester",
-        email: "testing@test.com",
-        contact: 6346376376,
-      },
-      {
-        id: "000001",
-        name: "tester",
-        email: "testing1@test.com",
-        contact: 6846376376,
-      },
-    ],
-  },
+  initialState,
   reducers: {
     contactAdded: {
       reducer(state, action) {
@@ -34,12 +36,13 @@ const contactSlice = createSlice({
         };
       },
     },
-    deleteContact: function (state, action) {
-      // console.log('this is state from redux', state.contacts);
-      // state.contacts.contactBook = state.contacts.contactBook?.filter(
-      //   (contact) => contact.id !== action.payload.id
-      // );
 
+    deleteContact: (state, action) => {
+      const contactIdToDelete = action.payload;
+      const updatedContactBook = state.contactBook.filter(
+        (contact) => contact.id !== contactIdToDelete
+      );
+      state.contactBook = updatedContactBook;
     },
   },
 });
