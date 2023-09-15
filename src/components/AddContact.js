@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { contactAdded, selectAllContacts } from "../redux/reducers/contactSlice";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const AddContact = () => {
   const contacts = useSelector(selectAllContacts);
   const dispatch = useDispatch();
+  const history = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
@@ -29,7 +31,11 @@ const AddContact = () => {
     } else if (checkNumber) {
       return toast.error("This Number already exists!");
     } else{
-      dispatch(contactAdded(name, email, contact))
+      dispatch(contactAdded(name, email, contact));
+      setName('');
+      setEmail('');
+      setContact('');
+      history('/');
     }
   };
 
