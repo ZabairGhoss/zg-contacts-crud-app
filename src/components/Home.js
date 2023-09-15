@@ -12,9 +12,8 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
-    console.log('deleting...', id);
     dispatch(deleteContact(id));
-  }
+  };
 
   console.log("contacts", contacts);
   return (
@@ -50,11 +49,11 @@ const Home = () => {
                     >
                       Edit
                     </Link>
-                    <button 
-                     type="button" 
-                     className="btn btn-small btn-danger"
-                     onClick={() => handleDelete(contact.id)}
-                     >
+                    <button
+                      type="button"
+                      className="btn btn-small btn-danger"
+                      onClick={() => handleDelete(contact.id)}
+                    >
                       Delete
                     </button>
                   </td>

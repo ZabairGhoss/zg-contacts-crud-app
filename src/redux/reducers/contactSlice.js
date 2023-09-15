@@ -36,7 +36,17 @@ const contactSlice = createSlice({
         };
       },
     },
-
+    updateContact: (state, action) => {
+      const { id, name, email, contact } = action.payload;
+      const existingContact = state.contactBook.find(
+        (contact) => contact.id === id
+      );
+      if (existingContact) {
+        existingContact.name = name;
+        existingContact.email = email;
+        existingContact.contact = contact;
+      }
+    },
     deleteContact: (state, action) => {
       const contactIdToDelete = action.payload;
       const updatedContactBook = state.contactBook.filter(
@@ -49,6 +59,7 @@ const contactSlice = createSlice({
 
 export const selectAllContacts = (state) => state.contacts.contactBook;
 
-export const { contactAdded, deleteContact } = contactSlice.actions;
+export const { contactAdded, deleteContact, updateContact } =
+  contactSlice.actions;
 
 export default contactSlice.reducer;
