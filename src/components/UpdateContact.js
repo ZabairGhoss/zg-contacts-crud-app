@@ -5,6 +5,7 @@ import {
   updateContact,
 } from "../redux/reducers/contactSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const UpdateContact = () => {
   const contacts = useSelector(selectAllContacts);
@@ -13,16 +14,34 @@ const UpdateContact = () => {
   const history = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [contact, setContact] = useState("");
+  const [number, setNumber] = useState("");
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    dispatch(updateContact({ id, name, email, contact }));
 
-    setName("");
-    setEmail("");
-    setContact("");
-    history("/");
+    const checkEmail = contacts?.find(
+      (contact) => contact.email === email && email
+    );
+    const checkNumber = contacts?.find((contact) => {
+      return contact.contact === number;
+    });
+
+    if (!email || !number || !name) {
+      return toast.warning("Please fill in all fields!");
+    }
+
+    if (checkEmail) {
+      return toast.error("This email already exists!");
+    } else if (checkNumber) {
+      return toast.error("This Number already exists!");
+    } else {
+      dispatch(updateContact({ id, name, email, number }));
+      toast.success("Contact updated Successfull!");
+      setName("");
+      setEmail("");
+      setNumber("");
+      history("/");
+    }
   };
 
   useEffect(() => {
@@ -30,9 +49,9 @@ const UpdateContact = () => {
       const existingContact = contacts.find((contact) => contact.id === id);
       setName(existingContact?.name);
       setEmail(existingContact?.email);
-      setContact(existingContact?.contact);
+      setNumber(existingContact?.contact);
     }
-  }, []);
+  }, [contacts, id]);
 
   return (
     <div className="container">
@@ -71,8 +90,8 @@ const UpdateContact = () => {
                 id="contact"
                 placeholder="Phone Number"
                 className="form-control"
-                value={contact}
-                onChange={(e) => setContact(e.target.value)}
+                value={number}
+                onChange={(e) => setNumber(e.target.value)}
               />
             </div>
 

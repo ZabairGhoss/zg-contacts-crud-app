@@ -35,9 +35,9 @@ const Home = () => {
                 <th scope="col">Action</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="text-center">
               {
-                contacts.length === 0 ?  <tr><td colSpan={5} className="text-center">You dont have any contact(s) added, Yet!</td></tr> :
+                contacts.length === 0 ?  <tr><td colSpan={5} className="text-center text-danger">You dont have any contact(s) added, Yet!</td></tr> :
                 contacts?.map((contact, id) => (
                 <tr key={id}>
                   <td>{id + 1}</td>

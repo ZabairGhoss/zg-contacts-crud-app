@@ -24,14 +24,14 @@ const contactSlice = createSlice({
       },
     },
     updateContact: (state, action) => {
-      const { id, name, email, contact } = action.payload;
+      const { id, name, email, number } = action.payload;
       const existingContact = state.contactBook.find(
         (contact) => contact.id === id
       );
       if (existingContact) {
         existingContact.name = name;
         existingContact.email = email;
-        existingContact.contact = contact;
+        existingContact.contact = number;
       }
     },
     deleteContact: (state, action) => {
