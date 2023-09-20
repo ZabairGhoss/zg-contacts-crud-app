@@ -7,6 +7,7 @@ import {
 
 import { Link } from "react-router-dom";
 import { Table } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const contacts = useSelector(selectAllContacts);
@@ -14,6 +15,7 @@ const Home = () => {
 
   const handleDelete = (id) => {
     dispatch(deleteContact(id));
+    toast.success("Contact deleted successfully!");
   };
 
   return (
