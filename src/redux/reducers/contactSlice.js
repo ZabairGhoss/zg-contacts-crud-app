@@ -1,20 +1,7 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
-  contactBook: [
-    {
-      id: "00000",
-      name: "tester",
-      email: "testing@test.com",
-      contact: 6346376376,
-    },
-    {
-      id: "000001",
-      name: "tester",
-      email: "testing1@test.com",
-      contact: 6846376376,
-    },
-  ],
+  contactBook: [],
 };
 
 const contactSlice = createSlice({
