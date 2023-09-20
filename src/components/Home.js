@@ -6,6 +6,7 @@ import {
 } from "../redux/reducers/contactSlice";
 
 import { Link } from "react-router-dom";
+import { Table } from "react-bootstrap";
 
 const Home = () => {
   const contacts = useSelector(selectAllContacts);
@@ -24,7 +25,7 @@ const Home = () => {
           </Link>
         </div>
         <div className="col-md-8 mx-auto">
-          <table className="table table-hover text-center">
+          <Table variant="dark" striped="true" hover>
             <thead className="text-white bg-dark text-center">
               <tr>
                 <th scope="col">Sr. #</th>
@@ -35,7 +36,9 @@ const Home = () => {
               </tr>
             </thead>
             <tbody>
-              {contacts?.map((contact, id) => (
+              {
+                contacts.length === 0 ?  <tr><td colSpan={5} className="text-center">You dont have any contact(s) added, Yet!</td></tr> :
+                contacts?.map((contact, id) => (
                 <tr key={id}>
                   <td>{id + 1}</td>
                   <td>{contact.name}</td>
@@ -57,9 +60,9 @@ const Home = () => {
                     </button>
                   </td>
                 </tr>
-              ))}
+                ))}
             </tbody>
-          </table>
+          </Table>
         </div>
       </div>
     </div>

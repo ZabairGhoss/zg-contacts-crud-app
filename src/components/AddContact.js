@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { contactAdded, selectAllContacts } from "../redux/reducers/contactSlice";
-import { toast } from "react-toastify";
+import {
+  contactAdded,
+  selectAllContacts,
+} from "../redux/reducers/contactSlice";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddContact = () => {
   const contacts = useSelector(selectAllContacts);
@@ -18,9 +22,9 @@ const AddContact = () => {
     const checkEmail = contacts?.find(
       (contact) => contact.email === email && email
     );
-    const checkNumber = contacts?.find(
-      (contact) => contact.contact === parseInt(contact) && contact
-    );
+    const checkNumber = contacts?.find((contact) => {
+      return parseInt(contact.contact) === contact && contact;
+    });
 
     if (!email || !contact || !name) {
       return toast.warning("Please fill in all fields!");
@@ -30,12 +34,12 @@ const AddContact = () => {
       return toast.error("This email already exists!");
     } else if (checkNumber) {
       return toast.error("This Number already exists!");
-    } else{
+    } else {
       dispatch(contactAdded(name, email, contact));
-      setName('');
-      setEmail('');
-      setContact('');
-      history('/');
+      setName("");
+      setEmail("");
+      setContact("");
+      history("/");
     }
   };
 
