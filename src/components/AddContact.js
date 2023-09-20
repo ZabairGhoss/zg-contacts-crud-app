@@ -14,7 +14,7 @@ const AddContact = () => {
   const history = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [contact, setContact] = useState("");
+  const [number, setNumber] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,10 +23,10 @@ const AddContact = () => {
       (contact) => contact.email === email && email
     );
     const checkNumber = contacts?.find((contact) => {
-      return parseInt(contact.contact) === contact && contact;
+      return contact.contact === number;
     });
 
-    if (!email || !contact || !name) {
+    if (!email || !number || !name) {
       return toast.warning("Please fill in all fields!");
     }
 
@@ -35,10 +35,11 @@ const AddContact = () => {
     } else if (checkNumber) {
       return toast.error("This Number already exists!");
     } else {
-      dispatch(contactAdded(name, email, contact));
+      dispatch(contactAdded(name, email, number));
+      toast.success("Contact added Successfull!");
       setName("");
       setEmail("");
-      setContact("");
+      setNumber("");
       history("/");
     }
   };
@@ -80,8 +81,8 @@ const AddContact = () => {
                 id="contact"
                 placeholder="Phone Number"
                 className="form-control"
-                value={contact}
-                onChange={(e) => setContact(e.target.value)}
+                value={number}
+                onChange={(e) => setNumber(e.target.value)}
               />
             </div>
 
