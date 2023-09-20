@@ -15,7 +15,6 @@ const Home = () => {
     dispatch(deleteContact(id));
   };
 
-  console.log("contacts", contacts);
   return (
     <div className="container">
       <div className="row">

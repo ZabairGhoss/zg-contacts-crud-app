@@ -1,5 +1,6 @@
 import { ToastContainer } from "react-bootstrap";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from "./components/Navbar";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
